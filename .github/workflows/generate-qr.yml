@@ -5,13 +5,19 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Generate QR Codes
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+      - name: Install dependencies
         run: |
           pip install qrcode[pil]
+      - name: Generate QR Codes
+        run: |
           python -c "import qrcode; qrcode.make('https://${{ github.repository_owner }}.github.io/${{ github.repository_name }}/grounded-cc.jpg').save('grounded-qr.png')"
           python -c "import qrcode; qrcode.make('https://${{ github.repository_owner }}.github.io/${{ github.repository_name }}/coated-cc.jpg').save('coated-qr.png')"
       - name: Upload QR Codes
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           path: |
             grounded-qr.png
