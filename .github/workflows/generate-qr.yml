@@ -1,0 +1,18 @@
+name: Generate QR Codes
+on: [push]
+jobs:
+  generate-qr:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Generate QR Codes
+        run: |
+          pip install qrcode[pil]
+          python -c "import qrcode; qrcode.make('https://${{ github.repository_owner }}.github.io/${{ github.repository_name }}/grounded-cc.jpg').save('grounded-qr.png')"
+          python -c "import qrcode; qrcode.make('https://${{ github.repository_owner }}.github.io/${{ github.repository_name }}/coated-cc.jpg').save('coated-qr.png')"
+      - name: Upload QR Codes
+        uses: actions/upload-artifact@v3
+        with:
+          path: |
+            grounded-qr.png
+            coated-qr.png
