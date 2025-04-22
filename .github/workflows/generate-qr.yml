@@ -5,17 +5,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Set up Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: '3.x'
-      - name: Install dependencies
-        run: |
-          pip install qrcode[pil]
       - name: Generate QR Codes
         run: |
-          python -c "import qrcode; qrcode.make('https://${{ github.repository_owner }}.github.io/${{ github.repository_name }}/cc-qr/grounded-cc.jpg').save('grounded-qr.png')"
-          python -c "import qrcode; qrcode.make('https://${{ github.repository_owner }}.github.io/${{ github.repository_name }}/cc-qr/coated-cc.jpg').save('coated-qr.png')"
+          pip install qrcode[pil]
+          python -c "import qrcode; qrcode.make(f'https://${{ github.repository_owner }}.github.io/cc-qr/grounded-cc.jpg').save('grounded-qr.png')"
+          python -c "import qrcode; qrcode.make(f'https://${{ github.repository_owner }}.github.io/cc-qr/coated-cc.jpg').save('coated-qr.png')"
       - name: Upload QR Codes
         uses: actions/upload-artifact@v4
         with:
