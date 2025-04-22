@@ -14,8 +14,8 @@ jobs:
           pip install qrcode[pil]
       - name: Generate QR Codes
         run: |
-          python -c "import qrcode; qrcode.make('https://${{ github.repository_owner }}.github.io/${{ github.repository_name }}/grounded-cc.jpg').save('grounded-qr.png')"
-          python -c "import qrcode; qrcode.make('https://${{ github.repository_owner }}.github.io/${{ github.repository_name }}/coated-cc.jpg').save('coated-qr.png')"
+          python -c "import qrcode; qrcode.make('https://${{ github.repository_owner }}.github.io/${{ github.repository_name }}/cc-qr/grounded-cc.jpg').save('grounded-qr.png')"
+          python -c "import qrcode; qrcode.make('https://${{ github.repository_owner }}.github.io/${{ github.repository_name }}/cc-qr/coated-cc.jpg').save('coated-qr.png')"
       - name: Upload QR Codes
         uses: actions/upload-artifact@v4
         with:
